@@ -1,0 +1,43 @@
+create database banking;
+use banking;
+grant all privileges on*.* to 'ayman' with grant option;
+create table BRANCH(
+branch_name varchar(20),
+branch_city varchar(20),
+assets real, 
+primary key(branch_name));
+
+create table ACCOUNTS(
+accno int(10),
+branch_name varchar(20),
+balance real,
+foreign key(branch_name) references BRANCH(branch_name) on delete cascade);
+show tables;
+
+create table DEPOSITER(
+customer_name varchar(25),
+customer_street varchar(25),
+customer_city varchar(20),
+primary key(customer_name));
+
+create table LOAN(
+loan_number int(10),
+branch_name varchar(20),
+amount real,
+primary key (loan_number),
+foreign key(branch_name) references BRANCH(branch_name) on delete cascade);
+
+create table BORROWER(
+customer_name varchar(25),
+loan_number int(10),
+foreign key(customer_name) references DEPOSITER(customer_name) on delete cascade,
+foreign key(loan_number) references LOAN(loan_number) on delete cascade
+);
+
+insert into BRANCH values('INDIRANAGAR','BANGALORE',2500000);
+insert into BRANCH values('KORAMANGALA','BANGALORE',3160000);
+insert into BRANCH values('MARINE DRIVE','MUMBAI',239040000);
+insert into BRANCH values('BANDRA WEST','MUMBAI',423704000);
+insert into BRANCH values('WHITEFIELD','BANGALORE',750328070);
+
+insert into ACCOUNTS values
